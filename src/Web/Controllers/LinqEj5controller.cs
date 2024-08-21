@@ -9,19 +9,8 @@ public class LinqEj5controller : ControllerBase
     [HttpGet]
     public IActionResult Get([FromQuery] List<int> numbers)
     {
-        var result =
-           from number in numbers
-           where number * number > 20
-           select number;
 
-        List<string> originalSquares = new List<string>();
-        foreach (var number in result.ToList())
-        {
-            string strNumb = number.ToString();
-            int square = number * number;
-            string strSquare = square.ToString();
-            originalSquares.Add($"{strNumb} - {strSquare}");
-        }
+        var result = numbers.Where(x => x * x > 20).Select(x => $"{x} - {x * x}").ToList();
         return Ok(result);
     }
 }
